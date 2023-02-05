@@ -22,44 +22,19 @@ void WatchyStarWarsAurebesh::drawWatchFace(){
     drawBattery();
     display.drawBitmap(18, 90, rebellogo, 30, 30, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     drawWifi();
-    //display.drawBitmap(128, 7, WIFI_CONFIGURED ? wifi : wifioff, 26, 18, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     if(BLE_CONFIGURED){
      //   display.drawBitmap(100, 75, bluetooth, 13, 21, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     }
 }
 
 void WatchyStarWarsAurebesh::drawTime(){
-    //56 x 43 - 36p // 60 x 46 - 38p
-    //int16_t  x1, y1;
-    //uint16_t w, h;
-
     uint8_t displayHour;
     if(HOUR_12_24==12){
       displayHour = ((currentTime.Hour+11)%12)+1;
     } else {
       displayHour = currentTime.Hour;
     }
-/*
-    uint16_t max_width;
-    display.setFont(&Aurebesh_english_Regular38pt7b);
-    display.getTextBounds("3", 5, 100, &x1, &y1, &max_width, &h);
-    int16_t baseline = 60;
 
-    int16_t left = 20;
-
-    if (displayHour < 10) {
-        printNumber("0", left, baseline, max_width);
-        printNumber(String(displayHour).c_str(), 5 + 5 + max_width, baseline, max_width);
-    }
-    else if (displayHour < 20) {
-        printNumber("1", left, baseline, max_width);
-        printNumber(String(displayHour - 10).c_str(), 5 + 5 + max_width, baseline, max_width);
-    }
-    else if (displayHour < 30) {
-        printNumber("2", left, baseline, max_width);
-        printNumber(String(displayHour - 20).c_str(), 5 + 5 + max_width, baseline, max_width);
-    }
-*/
     display.setFont(&Aurebesh_English_Monospace38pt7b);
     display.setCursor(18, 60);
 
@@ -177,28 +152,6 @@ void WatchyStarWarsAurebesh::drawBattery(){
         batteryLevel = String('u');
     }
     display.println(batteryLevel);
-
-/*
-    display.drawBitmap(158, 3, battery, 37, 21, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
-    display.fillRect(163, 8, 27, BATTERY_SEGMENT_HEIGHT, DARKMODE ? GxEPD_BLACK : GxEPD_WHITE);//clear battery segments
-    int8_t batteryLevel = 0;
-    float VBAT = getBatteryVoltage();
-    if(VBAT > 4.1){
-        batteryLevel = 3;
-    }
-    else if(VBAT > 3.95 && VBAT <= 4.1){
-        batteryLevel = 2;
-    }
-    else if(VBAT > 3.80 && VBAT <= 3.95){
-        batteryLevel = 1;
-    }
-    else if(VBAT <= 3.80){
-        batteryLevel = 0;
-    }
-
-    for(int8_t batterySegments = 0; batterySegments < batteryLevel; batterySegments++){
-        display.fillRect(163 + (batterySegments * BATTERY_SEGMENT_SPACING), 8, BATTERY_SEGMENT_WIDTH, BATTERY_SEGMENT_HEIGHT, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
-    }*/
 }
 
 void WatchyStarWarsAurebesh::drawWeather(){
@@ -223,7 +176,6 @@ void WatchyStarWarsAurebesh::drawWeather(){
     display.drawRoundRect(152, y_offset - 25, 7, 7, 1, GxEPD_WHITE);
     display.drawRoundRect(151, y_offset - 26, 9, 9, 1, GxEPD_WHITE);
 
-    //display.drawBitmap(165, 110, currentWeather.isMetric ? celsius : fahrenheit, 26, 20, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     const unsigned char* weatherIcon;
 
     //https://openweathermap.org/weather-conditions
