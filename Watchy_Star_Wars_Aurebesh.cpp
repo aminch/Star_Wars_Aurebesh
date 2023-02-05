@@ -12,8 +12,8 @@ void WatchyStarWarsAurebesh::drawWatchFace(){
     display.fillScreen(DARKMODE ? GxEPD_BLACK : GxEPD_WHITE);
     display.setTextColor(DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     
-    display.fillRect(2, 80, 196, 2, GxEPD_WHITE);
-    display.fillRect(2, 129, 196, 2, GxEPD_WHITE);
+    display.fillRect(2, 80, 196, 2, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
+    display.fillRect(2, 129, 196, 2, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
 
     drawTime();
     drawDate();
@@ -173,8 +173,8 @@ void WatchyStarWarsAurebesh::drawWeather(){
     display.setCursor(161, y_offset);
     display.println(currentWeather.isMetric ? "C" : "F");
 
-    display.drawRoundRect(152, y_offset - 25, 7, 7, 1, GxEPD_WHITE);
-    display.drawRoundRect(151, y_offset - 26, 9, 9, 1, GxEPD_WHITE);
+    display.drawRoundRect(152, y_offset - 25, 7, 7, 1, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
+    display.drawRoundRect(151, y_offset - 26, 9, 9, 1, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
 
     const unsigned char* weatherIcon;
 
