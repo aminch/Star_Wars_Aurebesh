@@ -2,7 +2,7 @@
 
 Star Wars Aurebesh is a watch face for [Watchy](https://watchy.sqfmi.com/) the Open Source E-Paper Watch. 
 
-![Screenshot](https://github.com/aminch/Stay_On_Target/blob/main/star_wars_aurebesh.gif)
+![Screenshot](https://github.com/aminch/Star_Wars_Aurebesh/blob/main/star_wars_aurebesh.gif)
 
 The design is inspired by Star Wars writing and symbols seen in various movies and tv shows.
 
