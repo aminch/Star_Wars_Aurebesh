@@ -2,6 +2,12 @@
 
 #define DARKMODE true
 
+#ifndef RTC_DATA_ATTR // Define for use in Watchysim
+#define RTC_DATA_ATTR
+#endif
+
+RTC_DATA_ATTR int8_t lastTemp = INT8_MIN;
+
 const uint8_t BATTERY_SEGMENT_WIDTH = 7;
 const uint8_t BATTERY_SEGMENT_HEIGHT = 11;
 const uint8_t BATTERY_SEGMENT_SPACING = 9;
@@ -160,14 +166,21 @@ void WatchyStarWarsAurebesh::drawWeather(){
     uint16_t w, h;
 
     weatherData currentWeather = getWeatherData();
+    if (currentWeather.external) {
+        lastTemp = currentWeather.temperature;
+    }
 
-    int8_t temperature = currentWeather.temperature;
-    int16_t weatherConditionCode = currentWeather.weatherConditionCode;
-    
     display.setFont(&Aurebesh_English_Monospace18pt7b);
-    display.getTextBounds(String(temperature), 0, 0, &x1, &y1, &w, &h);
-    display.setCursor(165 - w - 20, y_offset);
-    display.println(String(temperature));
+    if (lastTemp == INT8_MIN) {
+        display.getTextBounds("--", 0, 0, &x1, &y1, &w, &h);
+        display.setCursor(165 - w - 20, y_offset);
+        display.println("--");
+    }
+    else {
+        display.getTextBounds(String(lastTemp), 0, 0, &x1, &y1, &w, &h);
+        display.setCursor(165 - w - 20, y_offset);
+        display.println(String(lastTemp));
+    }
 
     display.setFont(&Aurebesh_English_Monospace18pt7b);
     display.setCursor(161, y_offset);
@@ -176,9 +189,12 @@ void WatchyStarWarsAurebesh::drawWeather(){
     display.drawRoundRect(152, y_offset - 25, 7, 7, 1, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
     display.drawRoundRect(151, y_offset - 26, 9, 9, 1, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
 
+/*
+    int16_t weatherConditionCode = currentWeather.weatherConditionCode;
+
     const unsigned char* weatherIcon;
 
-    //https://openweathermap.org/weather-conditions
+    // https://openweathermap.org/weather-conditions
     if(weatherConditionCode > 801){//Cloudy
     weatherIcon = cloudy;
     }else if(weatherConditionCode == 801){//Few Clouds
@@ -197,5 +213,6 @@ void WatchyStarWarsAurebesh::drawWeather(){
     weatherIcon = thunderstorm;
     }else
     return;
-    //display.drawBitmap(145, 158, weatherIcon, WEATHER_ICON_WIDTH, WEATHER_ICON_HEIGHT, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
+    display.drawBitmap(145, 158, weatherIcon, WEATHER_ICON_WIDTH, WEATHER_ICON_HEIGHT, DARKMODE ? GxEPD_WHITE : GxEPD_BLACK);
+*/
 }
